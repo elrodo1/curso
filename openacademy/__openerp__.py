@@ -13,7 +13,7 @@
     """,
     'website': 'https://www.soluziono.com',
     'depends': ['base'],
-    'data': ['views/course_view.xml'],
+    'data': ['views/course_view.xml','views/partner_view.xml'],
     'demo': [],
     'css': [],
     'installable': True,
