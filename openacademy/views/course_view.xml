@@ -56,22 +56,25 @@
                 <tree string="Cursos">
                     <field name="name"/>
                     <field name="description" />
-                    <field name="responsible_id" />
+                    <field name="responsible_id"/>
                 </tree>
             </field>
         </record>
     
    
     <record id="view_openacademy_course_search" model="ir.ui.view">
-            <field name="name">view.openacademy.course.search</field>
-            <field name="model">openacademy.course</field>
-            <field name="arch" type="xml">   
-                <search string="Cursos">
-                    <filter string="Mis Cursos" name="my_courses" domain="[('responsible_id','=', uid)]" help="Mis Cursos"/>
-                    <field name="name"/>
-                </search>
-            </field>
-            </record>
+        <field name="name">view.openacademy.course.search</field>
+        <field name="model">openacademy.course</field>
+        <field name="arch" type="xml">  
+            <search string="Course Search"> 
+            <filter string="My Courses" icon="terp-partner"
+                    name="my_courses"
+                    domain="[('responsible_id','=',1)]"
+                    help="My  courses" />
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
 
     
     <record id="course_list_action" model="ir.actions.act_window">
@@ -79,6 +82,7 @@
         <field name="res_model">openacademy.course</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_openacademy_course_search"/>
         <field name="context">{"search_default_my_courses":uid}</field>
         <field name="help" type="html"><p class="oe_view_nocontent_create">Create the first course</p>
         </field>
@@ -98,6 +102,13 @@
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
             <form string="Sesiones">
+                <header>
+                        <button name="action_confirm" type="object" string="Confirmar" states="draft" class="oe_highlight" />
+                        <button name="action_done" type="object" string="Listo" states="confirm" class="oe_highlight" />
+                        <button name="action_draft" type="object" string="Regresar a borrador" states="done,confirm" class="oe_highlight" />
+                        <button name="action_cancel" type="object" string="Cancelar" states="done,confirm" class="oe_highlight" />
+                        <field name="state" widget="statusbar"/>
+                </header>
                 <sheet string="sesiones">
                     <h1>
                     <field name="name" placeholder="Nombre Sesion"/>
